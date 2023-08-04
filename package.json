@@ -1,9 +1,9 @@
 {
   "name": "wa-language-tip",
-  "displayName": "wa-p1",
-  "description": "",
+  "displayName": "wa-language-tip",
+  "description": "key => value 映射",
   "icon": "img/avatar.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.61.0"
   },
@@ -45,7 +45,7 @@
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "build": "vsce paackage",
+    "build": "vsce package",
     "create-publisher": "vsce create-publisher",
     "vpub": "vsce publish"
   },
