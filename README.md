@@ -9,16 +9,16 @@
 
 ##### 默认配置的文件的配置格式
 
-![avatar](/img/file.png)
+```
+{
+"login": "登录",
+}
+```
 
 ##### 插件全局设置的格式
 
-![avatar](/img/globalSetting.png)
-
-##### 输入表现
-
-![avatar](/img/keyword.png)
-
-##### 回车表现
-
-![avatar](/img/result.png)
+```
+[
+    {key: 'login', value: 'login', isString: true}
+]
+```
