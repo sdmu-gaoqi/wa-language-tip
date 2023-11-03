@@ -24,13 +24,13 @@
       "properties": {
         "waLanguageTipSettingPath": {
           "type": "string",
-          "default": "src/constants/template.json",
+          "default": "src/constants/zh-CN.ts",
           "description": "key<=>value配对关系表"
         },
         "waLanguageTipGloablValue": {
           "type": "array",
           "default": [],
-          "description": "全局设置的自定义提示 优先级小于waLanguageTipSettingPath路径下的配置"
+          "description": "全局设置的自定义提示 优先级小于waLanguageTipSettingPath路径下的配置(注意 如果是ts或js 最后一个key的value后面不要跟, 否则会报错)"
         }
       }
     }
@@ -66,6 +66,7 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
+    "file-loader": "^6.2.0",
     "fs": "^0.0.1-security"
   },
   "publisher": "wa",
