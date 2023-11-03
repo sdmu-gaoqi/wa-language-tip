@@ -3,7 +3,7 @@
   "displayName": "wa-language-tip",
   "description": "key => value 映射",
   "icon": "img/avatar.png",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.61.0"
   },
@@ -24,7 +24,7 @@
       "properties": {
         "waLanguageTipSettingPath": {
           "type": "string",
-          "default": "src/constants/zh-CN.ts",
+          "default": "src/constants/template.json",
           "description": "key<=>value配对关系表"
         },
         "waLanguageTipGloablValue": {

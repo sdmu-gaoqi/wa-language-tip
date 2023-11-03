@@ -4,7 +4,14 @@
 
 ```
 提供一份 key => value 的样本 根据 value 自动转换为 key 值
-默认存放路径 src/constants/template.json 可以在插件设置里修改 目前仅支持 json 文件
+默认存放路径 src/constants/template.json 可以在插件设置里修改
+
+ts js 格式如下
+注意 最后一个value 后不能接, 否则报错
+export default {
+    "main.name": "姓名",
+    "main.age": "年龄"
+}
 ```
 
 ##### 默认配置的文件的配置格式
