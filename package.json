@@ -30,7 +30,7 @@
         "waLanguageTipGloablValue": {
           "type": "array",
           "default": [],
-          "description": "全局设置的自定义提示 优先级小于waLanguageTipSettingPath路径下的配置(注意 如果是ts或js 最后一个key的value后面不要跟, 否则会报错)"
+          "description": "全局设置的自定义提示 优先级小于waLanguageTipSettingPath路径下的配置"
         }
       }
     }
@@ -58,7 +58,6 @@
     "@typescript-eslint/parser": "^5.59.8",
     "@vscode/test-electron": "^2.3.2",
     "eslint": "^8.41.0",
-    "glob": "^8.1.0",
     "mocha": "^10.2.0",
     "ts-loader": "^9.4.3",
     "typescript": "^5.1.3",

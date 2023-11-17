@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-const path = require("path");
 import * as fs from "fs";
 
 /** 支持的语言类型 */
@@ -54,6 +53,8 @@ const getI18nTexts = async (document: vscode.TextDocument) => {
     }
 
     const isJson = globalPath.endsWith(".json");
+    const activeWork = vscode.workspace.getWorkspaceFolder(document.uri)?.uri
+      .path;
     // 这里配置本地的
     if (file?.length > 0) {
       let jsonData = {};
@@ -62,24 +63,14 @@ const getI18nTexts = async (document: vscode.TextDocument) => {
       }
       if (!isJson) {
         // 当前活跃的文件夹;
-        const activeWork = vscode.workspace.getWorkspaceFolder(document.uri)
-          ?.uri.path;
         const fileUri = vscode.Uri.joinPath(
           vscode.Uri.file(activeWork!),
           globalPath
         );
         let fileContent = (await vscode.workspace.fs.readFile(fileUri))
           .toString()
-          .replace("export default", "")
-          .replace("module.export = ", "");
-
-        fileContent = fileContent.replace(/['"]/g, function (match) {
-          return match === "'" ? '"' : "'";
-        });
-        if (fileContent[fileContent.length - 1] === ",") {
-          fileContent = fileContent.slice(0, -1);
-        }
-        jsonData = JSON.parse(fileContent);
+          .replace(/export default|module.export = /g, "");
+        jsonData = eval(`(${fileContent})`);
       }
       if (jsonData && typeof jsonData === "object") {
         Object.entries(jsonData).forEach(([oldKey, oldValue]) => {

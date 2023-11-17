@@ -7,7 +7,6 @@
 默认存放路径 src/constants/template.json 可以在插件设置里修改
 
 ts js 格式如下
-注意 最后一个value 后不能接, 否则报错
 export default {
     "main.name": "姓名",
     "main.age": "年龄"
