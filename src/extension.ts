@@ -138,7 +138,6 @@ export const selectTip = async (
   document: vscode.TextDocument
 ) => {
   const jsonData: Record<string, any> = await getI18nMap(document);
-  console.log(jsonData, "wordTip => jsonData");
   const value = jsonData?.[text];
   (global as any).vscode = vscode;
   if (value) {
