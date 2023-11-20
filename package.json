@@ -3,7 +3,7 @@
   "displayName": "wa-language-tip",
   "description": "key => value 映射",
   "icon": "img/avatar.png",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.61.0"
   },
