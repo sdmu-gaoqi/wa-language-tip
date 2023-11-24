@@ -141,7 +141,7 @@ export const selectTip = async (
   const value = jsonData?.[text];
   (global as any).vscode = vscode;
   if (value) {
-    vscode.window.showInformationMessage(`${text} => ${value}`);
+    vscode.window.setStatusBarMessage(`${text} => ${value}`, 6000);
     return;
   }
 };
