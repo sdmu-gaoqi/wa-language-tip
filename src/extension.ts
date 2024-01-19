@@ -3,6 +3,19 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 
+const getPackage = async (document: vscode.TextDocument) => {
+  const activeWork = vscode.workspace.getWorkspaceFolder(document.uri)?.uri
+    .path;
+  const packageData = JSON.parse(
+    await fs.readFileSync(`${activeWork}/package.json`, "utf-8")
+  );
+  const pageageConfig = packageData?.config || {};
+  return {
+    waLanguageTipSettingPath:
+      pageageConfig["wa-language-tip"]?.waLanguageTipSettingPath,
+  };
+};
+
 /** 支持的语言类型 */
 const LANGUAGES = [
   "typescriptreact",
@@ -32,12 +45,14 @@ class MyDocumentRangeSemanticTokensProvider
 
 const getI18nMap = async (document: vscode.TextDocument) => {
   try {
+    const packageConfig = await getPackage(document);
     // 获取vscode配置下的解析地址以替换默认的值
     const globalPath = vscode.workspace
       .getConfiguration()
       .get("waLanguageTipSettingPath") as string;
 
-    let realPath = globalPath ?? defaultPath;
+    let realPath =
+      packageConfig?.waLanguageTipSettingPath || globalPath || defaultPath;
     const file = await vscode.workspace.findFiles(realPath as string);
 
     const isJson = globalPath.endsWith(".json");
@@ -53,7 +68,7 @@ const getI18nMap = async (document: vscode.TextDocument) => {
         // 当前活跃的文件夹;
         const fileUri = vscode.Uri.joinPath(
           vscode.Uri.file(activeWork!),
-          globalPath
+          realPath
         );
         let fileContent = (await vscode.workspace.fs.readFile(fileUri))
           .toString()

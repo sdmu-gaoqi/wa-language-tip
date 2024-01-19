@@ -1,43 +1,30 @@
-# key => value 映射
+# wa-language-tip 多语言提示
 
-### (输入 value 自动载入 key)
+## 功能说明
 
-```
-提供一份 key => value 的样本 根据 value 自动转换为 key 值
-默认存放路径 src/constants/template.json 可以在插件设置里修改
+例
 
-```
-
-##### 默认配置的文件的配置格式
-
-```
-{
-"login": "登录",
-}
-```
-
-##### 插件全局设置的格式
-
-```
-[
-    {key: 'login', value: 'login', isString: true}
-]
-```
-
-#### 使用方式
-
-配置了插件读取的文件地址后
-ts js 格式如下
-
-```
+```typescript
+// src/locales/zh-CN.ts (非固定 waLanguageTipSettingPath 可配置地址)
 export default {
-    "main.name": "姓名",
-    "main.age": "年龄"
-}
-
+  message: "hellow",
+};
 ```
 
-在其他文件输入 i18n(key)时 可以输入 tip 发起提示信息
-或 具体中文 姓名 发起提示信息
+在文件中选中 message 代码片段 左下角会提示 他的 i18n 对应值
+在输入代码时 输入 mess 满足 startWith 会提示他的 i18n key 回车直接生成
 
-在其他文件中不确定 i18n(key) key 的中文语意 可以双击选中在 vscode 下方显示对应的配置文案
+## 配置说明
+
+1. waLanguageTipSettingPath
+   文件放置位置
+   默认值 src/constants/template.json
+   取值规则
+   ```typescript
+   // package.json { config: { wa-language-tip: { waLanguageTipSettingPath: '' } } } > 设置->插件
+   ```
+2. 插件全局设置的格式
+
+   ```typescript
+   [{ key: "login", value: "login", isString: true }];
+   ```
