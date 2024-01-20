@@ -5,7 +5,7 @@ import * as fs from "fs";
 
 const getPackage = async (document: vscode.TextDocument) => {
   const activeWork = vscode.workspace.getWorkspaceFolder(document.uri)?.uri
-    .path;
+    .fsPath;
   const packageData = JSON.parse(
     await fs.readFileSync(`${activeWork}/package.json`, "utf-8")
   );
@@ -57,12 +57,12 @@ const getI18nMap = async (document: vscode.TextDocument) => {
 
     const isJson = globalPath.endsWith(".json");
     const activeWork = vscode.workspace.getWorkspaceFolder(document.uri)?.uri
-      .path;
+      .fsPath;
     // 这里配置本地的
     if (file?.length > 0) {
       let jsonData = {};
       if (isJson) {
-        jsonData = JSON.parse(await fs.readFileSync(file[0].path, "utf-8"));
+        jsonData = JSON.parse(await fs.readFileSync(file[0].fsPath, "utf-8"));
       }
       if (!isJson) {
         // 当前活跃的文件夹;
