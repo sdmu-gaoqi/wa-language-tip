@@ -71,6 +71,10 @@
     "file-loader": "^6.2.0",
     "fs": "^0.0.1-security"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sdmu-gaoqi/wa-language-tip.git"
+  },
   "publisher": "wa",
   "license": "SEE LICENSE IN LICENSE.txt"
 }
