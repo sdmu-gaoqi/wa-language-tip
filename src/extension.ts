@@ -25,7 +25,7 @@ const LANGUAGES = [
 ];
 let triggers = [""];
 
-const defaultPath = "src/constants/template.json";
+const defaultPath = "src/locales/zh-CN.ts";
 
 const defaultData = {
   sortText: "sortText",

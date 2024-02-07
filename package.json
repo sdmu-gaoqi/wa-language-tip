@@ -24,7 +24,7 @@
       "properties": {
         "waLanguageTipSettingPath": {
           "type": "string",
-          "default": "src/constants/template.json",
+          "default": "src/locales/zh-CN.ts",
           "description": "key<=>value配对关系表"
         },
         "waLanguageTipGloablValue": {
