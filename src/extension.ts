@@ -130,6 +130,58 @@ const getI18nTexts = async (document: vscode.TextDocument) => {
     return configs;
   } catch (err) {}
 };
+
+export const showI18nInCodeLine = async (document?: vscode.TextDocument) => {
+  const decorationType = vscode.window.createTextEditorDecorationType({
+    // prevent conflicts:
+    // https://github.com/microsoft/vscode/issues/33852
+    // https://github.com/eamodio/vscode-gitlens/blob/main/src/annotations/lineAnnotationController.ts#L25
+    after: { margin: "0 0 0 3em" },
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedOpen,
+  });
+
+  if (!document || !LANGUAGES.includes(document.languageId)) {
+    return;
+  }
+  const color = vscode.workspace
+    .getConfiguration()
+    .get("showTranslateColor") as string;
+  const editor = vscode.window.activeTextEditor;
+  if (editor) {
+    const i18nMap = (await getI18nMap(editor.document)) as any;
+    const documentText = document.getText();
+    const joins = [];
+    for (const i in i18nMap) {
+      const startPosition = documentText.indexOf(i);
+      const endPostion = startPosition + i?.length;
+      const sp = document.positionAt(startPosition);
+      const ep = document.positionAt(endPostion);
+      const startText = documentText[startPosition - 1];
+      // 确保""内或''内
+      const endText = documentText[endPostion];
+      if (startPosition > 0 && startText === endText) {
+        const range = new vscode.Range(sp, ep);
+        const decoration = {
+          range: range,
+          renderOptions: {
+            after: {
+              contentText: `i18n文案：${i18nMap[i]}`,
+              color: color || "#CA61F2",
+            },
+          },
+        };
+        joins.push(decoration);
+      }
+      // const decorator = vscode.window.createTextEditorDecorationType({
+      //   renderOptions: {
+      //     after: { contentText: i18nMap[i] as string, color: "#1456f0" },
+      //   },
+      // });
+    }
+    editor.setDecorations(decorationType, joins);
+  }
+};
+
 export async function activate(context: vscode.ExtensionContext) {
   const completionProvider = vscode.languages.registerCompletionItemProvider(
     LANGUAGES,
@@ -169,6 +221,10 @@ vscode.window.onDidChangeTextEditorSelection((event) => {
     // 处理选中的单词
     selectTip(selectedWord, editor.document);
   }
+});
+
+vscode.window.onDidChangeActiveTextEditor((e) => {
+  void showI18nInCodeLine(e?.document);
 });
 
 // This method is called when your extension is deactivated

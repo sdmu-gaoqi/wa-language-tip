@@ -31,6 +31,16 @@
           "type": "array",
           "default": [],
           "description": "全局设置的自定义提示 优先级小于waLanguageTipSettingPath路径下的配置"
+        },
+        "showTranslatePath": {
+          "type": "string",
+          "default": "src",
+          "description": "配置代码中i18n匹配字符右侧显示翻译的路径"
+        },
+        "showTranslateColor": {
+          "type": "string",
+          "default": "#CA61F2",
+          "description": "配置代码中i18n匹配字符右侧显示翻译的字体色彩"
         }
       }
     }
