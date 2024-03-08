@@ -159,13 +159,15 @@ export const showI18nInCodeLine = async (document?: vscode.TextDocument) => {
       const startText = documentText[startPosition - 1];
       // 确保""内或''内
       const endText = documentText[endPostion];
-      if (startPosition > 0 && startText === endText) {
+      const isStr =
+        startText === endText && [`'`, `"`, "`"].includes(startText);
+      if (startPosition > 0 && isStr) {
         const range = new vscode.Range(sp, ep);
         const decoration = {
           range: range,
           renderOptions: {
             after: {
-              contentText: `i18n文案：${i18nMap[i]}`,
+              contentText: `i18n：${i18nMap[i]}`,
               color: color || "#CA61F2",
             },
           },
@@ -198,6 +200,10 @@ export async function activate(context: vscode.ExtensionContext) {
     ...triggers
   );
   context.subscriptions.push(completionProvider);
+  if (vscode.window.activeTextEditor) {
+    const editor = vscode.window.activeTextEditor;
+    void showI18nInCodeLine(editor.document);
+  }
 }
 
 export const selectTip = async (

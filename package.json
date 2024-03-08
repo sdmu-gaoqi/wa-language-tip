@@ -58,7 +58,7 @@
     "build": "vsce package",
     "create-publisher": "vsce create-publisher",
     "vpub": "vsce publish",
-    "release": "release-it"
+    "release": "release-it ci"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",

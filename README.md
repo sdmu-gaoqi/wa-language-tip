@@ -15,6 +15,8 @@ export default {
 ![image](img/tip2.jpeg)
 在输入代码时 输入 mess 满足 startWith 会提示他的 i18n key 回车直接生成
 ![image](img/tip1.png)
+在编辑器中直接显示字符对应的 i18n 默认语言的配置
+![image](img/i18nTipRight.png)
 
 ## 配置说明
 
