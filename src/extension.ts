@@ -22,6 +22,7 @@ const LANGUAGES = [
   "typescript",
   "javascript",
   "javascriptreact",
+  "json",
 ];
 let triggers = [""];
 
@@ -31,19 +32,8 @@ const defaultData = {
   sortText: "sortText",
   preselect: "preselect",
 };
-class MyDocumentRangeSemanticTokensProvider
-  implements vscode.DocumentRangeSemanticTokensProvider
-{
-  provideDocumentRangeSemanticTokens(
-    document: vscode.TextDocument,
-    range: vscode.Range,
-    token: vscode.CancellationToken
-  ): vscode.ProviderResult<any> {
-    // 在此处实现逻辑，生成指定范围内的语义标记
-  }
-}
 
-const getI18nMap = async (document: vscode.TextDocument) => {
+const getConfig = async (document: vscode.TextDocument) => {
   try {
     const packageConfig = await getPackage(document);
     // 获取vscode配置下的解析地址以替换默认的值
@@ -53,9 +43,23 @@ const getI18nMap = async (document: vscode.TextDocument) => {
 
     let realPath =
       packageConfig?.waLanguageTipSettingPath || globalPath || defaultPath;
+
+    return {
+      listenerPath: realPath,
+    };
+  } catch (err) {
+    return {
+      listenerPath: "",
+    };
+  }
+};
+
+const getI18nMap = async (document: vscode.TextDocument) => {
+  try {
+    const { listenerPath: realPath } = await getConfig(document);
     const file = await vscode.workspace.findFiles(realPath as string);
 
-    const isJson = globalPath.endsWith(".json");
+    const isJson = realPath.endsWith(".json");
     const activeWork = vscode.workspace.getWorkspaceFolder(document.uri)?.uri
       .fsPath;
     // 这里配置本地的
@@ -174,11 +178,6 @@ export const showI18nInCodeLine = async (document?: vscode.TextDocument) => {
         };
         joins.push(decoration);
       }
-      // const decorator = vscode.window.createTextEditorDecorationType({
-      //   renderOptions: {
-      //     after: { contentText: i18nMap[i] as string, color: "#1456f0" },
-      //   },
-      // });
     }
     editor.setDecorations(decorationType, joins);
   }
@@ -189,6 +188,13 @@ export async function activate(context: vscode.ExtensionContext) {
     LANGUAGES,
     {
       async provideCompletionItems(document: vscode.TextDocument) {
+        const fileName = document.fileName;
+        const { listenerPath } = await getConfig(document);
+        if (!fileName?.includes(listenerPath)) {
+          return;
+        }
+        console.log("wa-window>>>>>>", context);
+        console.log("wa-window>>>>>>", document);
         (global as any).vscode = vscode;
         const i18nTexts = await getI18nTexts(document);
         // ProviderResult<CompletionItem[] | CompletionList<CompletionItem>>
