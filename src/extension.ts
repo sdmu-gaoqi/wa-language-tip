@@ -193,8 +193,6 @@ export async function activate(context: vscode.ExtensionContext) {
         if (!fileName?.includes(listenerPath)) {
           return;
         }
-        console.log("wa-window>>>>>>", context);
-        console.log("wa-window>>>>>>", document);
         (global as any).vscode = vscode;
         const i18nTexts = await getI18nTexts(document);
         // ProviderResult<CompletionItem[] | CompletionList<CompletionItem>>
