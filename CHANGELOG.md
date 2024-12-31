@@ -1,5 +1,17 @@
 
 
+## [2.0.1](https://github.com/sdmu-gaoqi/wa-language-tip/compare/2.0.0...2.0.1) (2024-12-31)
+
+
+### chore
+
+* 🤖 调整监听策略 ([4c67285](https://github.com/sdmu-gaoqi/wa-language-tip/commit/4c672850b5b65847acc84835ea83c839bb5febc7))
+
+
+### BREAKING CHANGES
+
+* 🧨 仅当目标文件变更时更新多语言信息
+
 ## 1.0.3 (2024-03-08)
 
 
