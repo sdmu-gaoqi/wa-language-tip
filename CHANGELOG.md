@@ -1,5 +1,17 @@
 
 
+## [2.0.2](https://github.com/sdmu-gaoqi/wa-language-tip/compare/2.0.1...2.0.2) (2025-02-14)
+
+
+### chore
+
+* 🤖 多语言缓存 ([067ec46](https://github.com/sdmu-gaoqi/wa-language-tip/commit/067ec46580087fc83a10bfc60057bb0c329e6ea2))
+
+
+### BREAKING CHANGES
+
+* 🧨 仅在初始化和监听文件变化时重新读取配置
+
 ## [2.0.1](https://github.com/sdmu-gaoqi/wa-language-tip/compare/2.0.0...2.0.1) (2024-12-31)
 
 
