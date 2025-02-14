@@ -184,21 +184,27 @@ export const showI18nInCodeLine = async (document?: vscode.TextDocument) => {
 };
 
 export async function activate(context: vscode.ExtensionContext) {
+  let memoryI18nTexts: vscode.ProviderResult<
+    vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
+  > = [];
+  let initialization = true;
   const completionProvider = vscode.languages.registerCompletionItemProvider(
     LANGUAGES,
     {
       async provideCompletionItems(document: vscode.TextDocument) {
         const fileName = document.fileName;
         const { listenerPath } = await getConfig(document);
-        if (!fileName?.includes(listenerPath)) {
-          return;
+        if (fileName?.includes(listenerPath) || initialization) {
+          const i18nTexts = (await getI18nTexts(
+            document
+          )) as typeof memoryI18nTexts;
+          initialization = false;
+          if (i18nTexts) {
+            memoryI18nTexts = i18nTexts;
+          }
+          return i18nTexts;
         }
-        (global as any).vscode = vscode;
-        const i18nTexts = await getI18nTexts(document);
-        // ProviderResult<CompletionItem[] | CompletionList<CompletionItem>>
-        return i18nTexts as vscode.ProviderResult<
-          vscode.CompletionItem[] | vscode.CompletionList<vscode.CompletionItem>
-        >;
+        return memoryI18nTexts;
       },
     },
     ...triggers
