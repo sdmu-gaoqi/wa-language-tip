@@ -11,9 +11,7 @@ export default {
 };
 ```
 
-在文件中选中 message 代码片段 左下角会提示 他的 i18n 对应值
-![image](img/tip2.jpeg)
-在输入代码时 输入 mess 满足 startWith 会提示他的 i18n key 回车直接生成
+在输入代码时 输入 message 满足 startWith 会提示他的 i18n key 回车直接生成
 ![image](img/tip1.png)
 在编辑器中直接显示字符对应的 i18n 默认语言的配置
 ![image](img/i18nTipRight.png)
